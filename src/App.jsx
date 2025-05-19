@@ -43,14 +43,13 @@ function App() {
       btn.style.backgroundColor = "white";
     }, 50);
 
-    console.log("onClickAdd(): "); 
+    console.log("onClickAdd(): ");
     // Add the current input value (inputItem) to the items array.
     // Use the setter function to create a new array with the previous items + the new one.
     // This is the proper way to update an array in React state without mutating it directly.
     setItems((prevItems) => [...prevItems, inputItem]);
 
-    
-  // Clear the input field after adding the item, so the user can type a new one.
+    // Clear the input field after adding the item, so the user can type a new one.
     setInputItem("");
 
     event.preventDefault();
@@ -62,6 +61,9 @@ function App() {
         <h1>To-Do List</h1>
       </div>
       <div className="form">
+        {/* The 'value' is set to the inputItem state, and onChange triggers handleChangedItem(). 
+        This ensures React is in full control of the input's value at all times, which is the 
+        proper way to manage form inputs in React (a "controlled component").*/}
         <input value={inputItem} onChange={handleChangedItem} type="text" />
         <button onClick={onClickAdd}>
           <span>Add</span>
