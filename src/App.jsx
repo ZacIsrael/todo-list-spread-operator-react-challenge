@@ -59,6 +59,17 @@ function App() {
     }
   }
 
+  function deleteItem(itemId) {
+    console.log("This item will be deleted. Its id is ", itemId);
+    // call setItems and delete the item with id = itemId from the items array
+    setItems((prevItems) => {
+      return prevItems.filter((item, index) => {
+        console.log('item = ', item);
+        // return a new array that has all of the items from the previous array EXCEPT for the one where its index = itemId
+        return index !== itemId;
+      });
+    });
+  }
   return (
     <div className="container">
       <div className="heading">
@@ -77,7 +88,8 @@ function App() {
         <ul>
           {/* populate the unordered list with items from the items array */}
           {items.map((item, i) => (
-            <ToDoItem key={i} item={item} />
+            // deleteItem function gets passed to the ToDo item component so it can be used there
+            <ToDoItem key={i} id={i} item={item} onChecked={deleteItem} />
             // console.log('item = ', item);
             // return <li key={index}>{item}</li>;
           ))}
