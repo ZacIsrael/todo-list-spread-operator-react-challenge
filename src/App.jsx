@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import ToDoItem from "./components/ToDoItem";
 
 function App() {
   // How to create a React app: npm create vite@latest {app-name} -- --template react
@@ -72,8 +73,10 @@ function App() {
       <div>
         <ul>
           {/* populate the unordered list with items from the items array */}
-          {items.map((item, index) => (
-            <li key={index}>{item}</li>
+          {items.map((item) => (
+            <ToDoItem item={item}/>
+            // console.log('item = ', item);
+            // return <li key={index}>{item}</li>;
           ))}
         </ul>
       </div>
