@@ -19,6 +19,9 @@ function InputArea(props) {
     <div className="form">
       <input value={inputItem} onChange={handleChangedItem} type="text" />
       <button
+        // Creating this anonymous function allows for parameters to be passed to the function
+        // stored in the props parameter. If it wasn't for the anonymous function, the function
+        // stored in the props parameter would be executed as soon as this component has been rendered
         onClick={async () => {
           await props.buttonOnClickAdd(inputItem);
 
