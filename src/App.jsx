@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import ToDoItem from "./components/ToDoItem";
+import InputArea from "./components/InputArea";
 
 function App() {
   // How to create a React app: npm create vite@latest {app-name} -- --template react
@@ -64,7 +65,7 @@ function App() {
     // call setItems and delete the item with id = itemId from the items array
     setItems((prevItems) => {
       return prevItems.filter((item, index) => {
-        console.log('item = ', item);
+        console.log("item = ", item);
         // return a new array that has all of the items from the previous array EXCEPT for the one where its index = itemId
         return index !== itemId;
       });
@@ -75,15 +76,14 @@ function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <div className="form">
-        {/* The 'value' is set to the inputItem state, and onChange triggers handleChangedItem(). 
+      {/* The 'value' is set to the inputItem state, and onChange triggers handleChangedItem(). 
         This ensures React is in full control of the input's value at all times, which is the 
         proper way to manage form inputs in React (a "controlled component").*/}
-        <input value={inputItem} onChange={handleChangedItem} type="text" />
-        <button onClick={onClickAdd}>
-          <span>Add</span>
-        </button>
-      </div>
+      <InputArea
+        inputValue={inputItem}
+        inputOnChange={handleChangedItem}
+        buttonOnClickAdd={onClickAdd}
+      />
       <div>
         <ul>
           {/* populate the unordered list with items from the items array */}
