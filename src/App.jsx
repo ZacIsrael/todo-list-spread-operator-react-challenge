@@ -5,7 +5,6 @@ import "./App.css";
 
 function App() {
   // How to create a React app: npm create vite@latest {app-name} -- --template react
-  const [count, setCount] = useState(0);
 
   // CHALLENGE: Make this app work by applying what you've learned.
   // 1. When new text is written into the input, its state should be saved.
@@ -15,7 +14,7 @@ function App() {
 
   // 3. The <ul> should display all the array items as <li>s
 
-  // inputItem keeps track of what is being typed 
+  // inputItem keeps track of what is being typed
   const [inputItem, setInputItem] = useState("");
 
   // items is the array that keeps track of all the items.
@@ -27,6 +26,10 @@ function App() {
     const { value } = event.target;
 
     console.log("value = ", value);
+
+    // Save the new value from the input field into state,
+    // so React can keep track of what's currently typed in the box
+    setInputItem(value);
   }
 
   function onClickAdd(event) {
@@ -40,9 +43,15 @@ function App() {
       btn.style.backgroundColor = "white";
     }, 50);
 
-    console.log("onClickAdd(): ");
+    console.log("onClickAdd(): "); 
+    // Add the current input value (inputItem) to the items array.
+    // Use the setter function to create a new array with the previous items + the new one.
+    // This is the proper way to update an array in React state without mutating it directly.
+    setItems((prevItems) => [...prevItems, inputItem]);
 
-    setInputItem(inputItem);
+    
+  // Clear the input field after adding the item, so the user can type a new one.
+    setInputItem("");
 
     event.preventDefault();
   }
@@ -53,14 +62,17 @@ function App() {
         <h1>To-Do List</h1>
       </div>
       <div className="form">
-        <input onChange={handleChangedItem} type="text" />
+        <input value={inputItem} onChange={handleChangedItem} type="text" />
         <button onClick={onClickAdd}>
           <span>Add</span>
         </button>
       </div>
       <div>
         <ul>
-          <li>A Item</li>
+          {/* populate the unordered list with items from the items array */}
+          {items.map((item, index) => (
+            <li key={index}>{item}</li>
+          ))}
         </ul>
       </div>
     </div>
