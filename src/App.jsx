@@ -44,16 +44,19 @@ function App() {
       btn.style.backgroundColor = "white";
     }, 50);
 
-    console.log("onClickAdd(): ");
-    // Add the current input value (inputItem) to the items array.
-    // Use the setter function to create a new array with the previous items + the new one.
-    // This is the proper way to update an array in React state without mutating it directly.
-    setItems((prevItems) => [...prevItems, inputItem]);
+    console.log("onClickAdd(): inputItem = ", inputItem);
+    // only add an item to the list if the user actually typed one in. (No empty strings in the todo list)
+    if (inputItem.trim().length > 0) {
+      // Add the current input value (inputItem) to the items array.
+      // Use the setter function to create a new array with the previous items + the new one.
+      // This is the proper way to update an array in React state without mutating it directly.
+      setItems((prevItems) => [...prevItems, inputItem]);
 
-    // Clear the input field after adding the item, so the user can type a new one.
-    setInputItem("");
+      // Clear the input field after adding the item, so the user can type a new one.
+      setInputItem("");
 
-    event.preventDefault();
+      event.preventDefault();
+    }
   }
 
   return (
@@ -73,8 +76,8 @@ function App() {
       <div>
         <ul>
           {/* populate the unordered list with items from the items array */}
-          {items.map((item) => (
-            <ToDoItem item={item}/>
+          {items.map((item, i) => (
+            <ToDoItem key={i} item={item} />
             // console.log('item = ', item);
             // return <li key={index}>{item}</li>;
           ))}
