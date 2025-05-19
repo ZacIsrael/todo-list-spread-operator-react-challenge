@@ -16,13 +16,16 @@ function App() {
 
   // 3. The <ul> should display all the array items as <li>s
 
-  // inputItem keeps track of what is being typed
-  const [inputItem, setInputItem] = useState("");
+  // inputItem keeps track of what is being typed (moved to InputArea component)
+  // const [inputItem, setInputItem] = useState("");
 
   // items is the array that keeps track of all the items.
   // Its initial state is an empty array
   const [items, setItems] = useState([]);
 
+  /*
+
+  // Moved to InputArea component
   function handleChangedItem(event) {
     // value is what the user typed
     const { value } = event.target;
@@ -32,9 +35,11 @@ function App() {
     // Save the new value from the input field into state,
     // so React can keep track of what's currently typed in the box
     setInputItem(value);
-  }
+  } 
 
-  function onClickAdd(event) {
+  */
+
+  function onClickAdd(inputItem) {
     // retrieve the button that was clicked
     let btn = event.target;
     // make the background of the button black once it's clicked
@@ -53,8 +58,9 @@ function App() {
       // This is the proper way to update an array in React state without mutating it directly.
       setItems((prevItems) => [...prevItems, inputItem]);
 
+      // The line below has been moved to the InputArea component
       // Clear the input field after adding the item, so the user can type a new one.
-      setInputItem("");
+      // setInputItem("");
 
       event.preventDefault();
     }
@@ -80,8 +86,8 @@ function App() {
         This ensures React is in full control of the input's value at all times, which is the 
         proper way to manage form inputs in React (a "controlled component").*/}
       <InputArea
-        inputValue={inputItem}
-        inputOnChange={handleChangedItem}
+        // inputValue={inputItem}
+        // inputOnChange={handleChangedItem}
         buttonOnClickAdd={onClickAdd}
       />
       <div>

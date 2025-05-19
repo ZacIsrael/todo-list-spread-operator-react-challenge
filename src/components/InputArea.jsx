@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 
 function InputArea(props) {
+  // inputItem keeps track of what is being typed
+  const [inputItem, setInputItem] = useState("");
+
+  // executes when a change is made
+  function handleChangedItem(event) {
+    // value is what the user typed
+    const { value } = event.target;
+
+    console.log("value = ", value);
+
+    // Save the new value from the input field into state,
+    // so React can keep track of what's currently typed in the box
+    setInputItem(value);
+  }
   return (
     <div className="form">
-      {/* The 'value' is set to the state (parent component), and onChange triggers the function that 
-      props.inputOnChange points to. This ensures React is in full control of the input's value at all times, 
-      which is the proper way to manage form inputs in React (a "controlled component").*/}
-      <input value={props.inputValue} onChange={props.inputOnChange} type="text" />
-      <button onClick={props.buttonOnClickAdd}>
+      <input value={inputItem} onChange={handleChangedItem} type="text" />
+      <button
+        onClick={async () => {
+          await props.buttonOnClickAdd(inputItem);
+
+          // Clear the input field after adding the item, so the user can type a new one.
+          setInputItem("");
+        }}
+      >
         <span>Add</span>
       </button>
     </div>
